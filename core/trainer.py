@@ -2,7 +2,7 @@ import os.path
 import datetime
 import cv2
 import numpy as np
-from skimage.measure import compare_ssim
+from skimage import measure
 from core.utils import preprocess, metrics
 import lpips
 import torch
@@ -103,7 +103,7 @@ def test(model, test_input_handle, configs, itr):
 
             psnr[i] += metrics.batch_psnr(pred_frm, real_frm)
             for b in range(configs.batch_size):
-                score, _ = compare_ssim(pred_frm[b], real_frm[b], full=True, multichannel=True)
+                score, _ = measure.compare_ssim(pred_frm[b], real_frm[b], full=True, multichannel=True)
                 ssim[i] += score
 
         # save prediction examples
