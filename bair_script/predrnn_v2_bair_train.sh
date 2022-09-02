@@ -1,7 +1,7 @@
 export CUDA_VISIBLE_DEVICES=1
 cd ..
 python -u run.py \
-    --is_training 1 \
+    --is_training 0 \
     --device cuda \
     --dataset_name bair \
     --train_data_paths /data/Action-BAIR/ \
@@ -32,4 +32,4 @@ python -u run.py \
     --snapshot_interval 5000 \
     --conv_on_input 1 \
     --res_on_conv 1 \
-#    --pretrained_model ./checkpoints/bair_predrnn_v2/bair_model.ckpt
+    --pretrained_model /content/drive/MyDrive/Capstone/Data/Time Slicing/bair_model.ckpt
