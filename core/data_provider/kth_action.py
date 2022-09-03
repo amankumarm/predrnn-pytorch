@@ -128,8 +128,8 @@ class DataProcess:
                 filelist = os.listdir(dir_path)
                 filelist.sort() 
                 for file in filelist: 
-                    if file.startswith('image') == False:
-                        continue
+                    # if file.startswith('image') == False:
+                    #     continue
                     # print(file)
                     # print(os.path.join(dir_path, file))
                     frame_im = Image.open(os.path.join(dir_path, file))
