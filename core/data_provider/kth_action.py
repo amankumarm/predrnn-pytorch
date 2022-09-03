@@ -108,10 +108,12 @@ class DataProcess:
         c_dir_list = self.category
         frame_category_flag = -1
         for c_dir in c_dir_list: # handwaving
-            if c_dir in self.category_1:
+            # if c_dir in self.category_1:
+            #     frame_category_flag = 1 # 20 step
+            if c_dir in self.category:
                 frame_category_flag = 1 # 20 step
-            elif c_dir in self.category_2:
-                frame_category_flag = 2 # 3 step
+            # elif c_dir in self.category_2:
+            #     frame_category_flag = 2 # 3 step
             else:
                 print("category error!!!")
 
