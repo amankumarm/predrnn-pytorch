@@ -1,7 +1,7 @@
-export CUDA_VISIBLE_DEVICES=4
+export CUDA_VISIBLE_DEVICES=0
 cd ..
 python -u run.py \
-    --is_training 1 \
+    --is_training 0 \
     --device cuda \
     --dataset_name action \
     --train_data_paths /content/predrnn-pytorch/data/Action-BAIR/ \
