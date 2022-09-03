@@ -4,8 +4,8 @@ python -u run.py \
     --is_training 0 \
     --device cuda \
     --dataset_name bair \
-    --train_data_paths /content/predrnn-pytorch/data/Action-BAIR/softmotion30_44k/train \
-    --valid_data_paths /content/predrnn-pytorch/data/Action-BAIR/softmotion30_44k/test \
+    --train_data_paths /content/predrnn-pytorch/data/Action-BAIR/ \
+    --valid_data_paths /content/predrnn-pytorch/data/Action-BAIR/ \
     --save_dir checkpoints/bair_action_cond_predrnn_v2 \
     --gen_frm_dir results/bair_action_cond_predrnn_v2 \
     --model_name action_cond_predrnn_v2 \
