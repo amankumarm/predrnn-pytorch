@@ -2,7 +2,7 @@ import os.path
 import datetime
 import cv2
 import numpy as np
-from skimage import measure
+from skimage import metrics as m
 from core.utils import preprocess, metrics
 import lpips
 import torch
@@ -103,7 +103,7 @@ def test(model, test_input_handle, configs, itr):
 
             psnr[i] += metrics.batch_psnr(pred_frm, real_frm)
             for b in range(configs.batch_size):
-                score, _ = measure.compare_ssim(pred_frm[b], real_frm[b], full=True, multichannel=True)
+                score, _ = m.structural_similarity(pred_frm[b], real_frm[b], full=True, multichannel=True)
                 ssim[i] += score
 
         # save prediction examples
@@ -135,12 +135,12 @@ def test(model, test_input_handle, configs, itr):
     for i in range(configs.total_length - configs.input_length):
         print(ssim[i])
 
-    psnr = np.asarray(psnr, dtype=np.float32) / batch_id
+    psnr = np.asarray(psnr, dtype=np.float32) / (batch_id)
     print('psnr per frame: ' + str(np.mean(psnr)))
     for i in range(configs.total_length - configs.input_length):
         print(psnr[i])
 
-    lp = np.asarray(lp, dtype=np.float32) / batch_id
+    lp = np.asarray(lp, dtype=np.float32) / (batch_id)
     print('lpips per frame: ' + str(np.mean(lp)))
     for i in range(configs.total_length - configs.input_length):
         print(lp[i])

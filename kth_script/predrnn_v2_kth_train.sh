@@ -13,8 +13,8 @@ python -u run.py \
     --reverse_input 1 \
     --img_width 128 \
     --img_channel 1 \
-    --input_length 10 \
-    --total_length 20 \
+    --input_length 5 \
+    --total_length 10 \
     --num_hidden 128,128,128,128 \
     --filter_size 5 \
     --stride 1 \
@@ -26,7 +26,7 @@ python -u run.py \
     --r_sampling_step_2 50000 \
     --r_exp_alpha 2000 \
     --lr 0.0001 \
-    --batch_size 4 \
+    --batch_size 2 \
     --max_iterations 80000 \
     --display_interval 100 \
     --test_interval 5000 \

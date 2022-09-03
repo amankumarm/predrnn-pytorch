@@ -83,7 +83,7 @@ class DataProcess:
         self.input_param = input_param
         self.seq_len = input_param['seq_length']
 
-    def load_data(self, paths, mode='train'):
+    def load_data(self, paths, mode='test'):
         '''
         frame -- action -- person_seq(a dir)
         :param paths: action_path list
@@ -125,6 +125,7 @@ class DataProcess:
                     continue
                 person_mark += 1
                 dir_path = os.path.join(c_dir_path, p_c_dir)
+                print("DIR: ", dir_path)
                 filelist = os.listdir(dir_path)
                 filelist.sort() 
                 for file in filelist: 
@@ -141,14 +142,21 @@ class DataProcess:
                     frames_person_mark.append(person_mark)
                     frames_category.append(frame_category_flag)
         # is it a begin index of sequence
+        print("Array: ", *frames_person_mark)
+        print("frames_file_name", *frames_file_name, len(frames_file_name))
         indices = []
         index = len(frames_person_mark) - 1
+        print("self.seq_len", self.seq_len)
+
         while index >= self.seq_len - 1:
             if frames_person_mark[index] == frames_person_mark[index - self.seq_len + 1]:
-                end = int(frames_file_name[index][6:10])
-                start = int(frames_file_name[index - self.seq_len + 1][6:10])
+                # print("in1")
+                end = int(frames_file_name[index][6:11])
+                start = int(frames_file_name[index - self.seq_len + 1][6:11])
                 # TODO: mode == 'test'
+                print("index", index)
                 if end - start == self.seq_len - 1:
+                    print("in2")
                     indices.append(index - self.seq_len + 1)
                     if frames_category[index] == 1:
                         index -= self.seq_len - 1
@@ -157,7 +165,6 @@ class DataProcess:
                     else:
                         print("category error 2 !!!")
             index -= 1
-
         frames_np = np.asarray(frames_np)
         data = np.zeros((frames_np.shape[0], self.image_width, self.image_width , 1))
         for i in range(len(frames_np)):
@@ -174,4 +181,3 @@ class DataProcess:
     def get_test_input_handle(self):
         test_data, test_indices = self.load_data(self.paths, mode='test')
         return InputHandle(test_data, test_indices, self.input_param)
-
