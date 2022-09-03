@@ -4,8 +4,8 @@ python -u run.py \
     --is_training 1 \
     --device cuda \
     --dataset_name action \
-    --train_data_paths /workspace/wuhaixu/predrnn/data/kth_action \
-    --valid_data_paths /workspace/wuhaixu/predrnn/data/kth_action \
+    --train_data_paths /content/predrnn-pytorch/data/Action-BAIR/ \
+    --valid_data_paths /content/predrnn-pytorch/data/Action-BAIR/ \
     --save_dir checkpoints/kth_predrnn_v2 \
     --gen_frm_dir results/kth_predrnn_v2 \
     --model_name predrnn_v2 \
@@ -31,4 +31,4 @@ python -u run.py \
     --display_interval 100 \
     --test_interval 5000 \
     --snapshot_interval 5000 \
-#    --pretrained_model ./checkpoints/kth_predrnn_v2/kth_model.ckpt
+    --pretrained_model "/content/drive/MyDrive/Capstone/Data/Time Slicing/kth_model.ckpt"
