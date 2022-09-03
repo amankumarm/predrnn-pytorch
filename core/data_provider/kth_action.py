@@ -71,9 +71,9 @@ class InputHandle:
 class DataProcess:
     def __init__(self, input_param):
         self.paths = input_param['paths']
-        self.category_1 = ['boxing', 'handclapping', 'handwaving', 'walking']
-        self.category_2 = ['jogging', 'running']
-        self.category = self.category_1 + self.category_2
+        # self.category_1 = ['boxing']
+        # self.category_2 = ['jogging', 'running']
+        self.category = ['boxing']
         self.image_width = input_param['image_width']
 
         self.train_person = ['01', '02', '03', '04', '05', '06', '07', '08',
