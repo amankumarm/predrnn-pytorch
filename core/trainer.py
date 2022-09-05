@@ -107,6 +107,8 @@ def test(model, test_input_handle, configs, itr):
                 ssim[i] += score
 
         # save prediction examples
+        frameSize = (128, 128)
+        out = cv2.VideoWriter('/content/predrnn-pytorch/results/kth_predrnn_v2/output_video.mp4',cv2.VideoWriter_fourcc(*'DIVX'), 16, frameSize)
         if batch_id <= configs.num_save_samples:
             path = os.path.join(res_path, str(batch_id))
             os.mkdir(path)
@@ -115,6 +117,7 @@ def test(model, test_input_handle, configs, itr):
                 file_name = os.path.join(path, name)
                 img_gt = np.uint8(test_ims[0, i, :, :, :] * 255)
                 cv2.imwrite(file_name, img_gt)
+                out.write(cv2.imread(file_name))
             for i in range(output_length):
                 name = 'pd' + str(i + 1 + configs.input_length) + '.png'
                 file_name = os.path.join(path, name)
@@ -123,6 +126,8 @@ def test(model, test_input_handle, configs, itr):
                 img_pd = np.minimum(img_pd, 1)
                 img_pd = np.uint8(img_pd * 255)
                 cv2.imwrite(file_name, img_pd)
+                out.write(cv2.imread(file_name))
+            out.release()
         test_input_handle.next()
 
     avg_mse = avg_mse / (batch_id * configs.batch_size)
