@@ -154,9 +154,9 @@ class DataProcess:
                 end = int(frames_file_name[index][6:11])
                 start = int(frames_file_name[index - self.seq_len + 1][6:11])
                 # TODO: mode == 'test'
-                print("index", index)
+                # print("index", index)
                 if end - start == self.seq_len - 1:
-                    print("in2")
+                    # print("in2")
                     indices.append(index - self.seq_len + 1)
                     if frames_category[index] == 1:
                         index -= self.seq_len - 1
