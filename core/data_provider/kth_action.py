@@ -48,7 +48,7 @@ class InputHandle:
                 "There is no batch left in " + self.name + ". Consider to user iterators.begin() to rescan from the beginning of the iterators")
             return None
         input_batch = np.zeros(
-            (self.minibatch_size, self.current_input_length, self.image_width, self.image_width, 1)).astype(
+            (self.minibatch_size, self.current_input_length, self.image_width, self.image_width, 3)).astype(
             self.input_data_type)
         for i in range(self.minibatch_size):
             batch_ind = self.current_batch_indices[i]
