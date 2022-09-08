@@ -55,6 +55,7 @@ class InputHandle:
             begin = batch_ind
             end = begin + self.current_input_length
             data_slice = self.datas[begin:end, :, :, :]
+            print("data_slice", data_slice.shape)
             input_batch[i, :self.current_input_length, :, :, :] = data_slice
             
         input_batch = input_batch.astype(self.input_data_type)
@@ -133,10 +134,13 @@ class DataProcess:
                     #     continue
                     # print(file)
                     # print(os.path.join(dir_path, file))
-                    frame_im = Image.open(os.path.join(dir_path, file))
+                    # frame_im = Image.open(os.path.join(dir_path, file))
+                    frame_im = cv2.imread(os.path.join(dir_path, file), cv2.IMREAD_COLOR)
+                    print("init_image", frame_im.shape)
+                    cv2.imwrite("/content/predrnn-pytorch/data/Action-BAIR/init_check.png", frame_im)
                     frame_np = np.array(frame_im)  # (1000, 1000) numpy array
                     # print(frame_np.shape)
-                    frame_np = frame_np[:, :, 0] #
+                    # frame_np = frame_np[:, :, 0] #
                     frames_np.append(frame_np)
                     frames_file_name.append(file)
                     frames_person_mark.append(person_mark)
@@ -166,10 +170,10 @@ class DataProcess:
                         print("category error 2 !!!")
             index -= 1
         frames_np = np.asarray(frames_np)
-        data = np.zeros((frames_np.shape[0], self.image_width, self.image_width , 1))
+        data = np.zeros((frames_np.shape[0], self.image_width, self.image_width , 3))
         for i in range(len(frames_np)):
-            temp = np.float32(frames_np[i, :, :])
-            data[i,:,:,0]=cv2.resize(temp,(self.image_width,self.image_width))/255
+            temp = np.float32(frames_np[i, :, :, :])
+            data[i,:,:,:]=cv2.resize(temp,(self.image_width,self.image_width))/255
         print("there are " + str(data.shape[0]) + " pictures")
         print("there are " + str(len(indices)) + " sequences")
         return data, indices
