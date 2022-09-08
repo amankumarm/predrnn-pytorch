@@ -1,7 +1,7 @@
 export CUDA_VISIBLE_DEVICES=0
 cd ..
 python -u run.py \
-    --is_training 0 \
+    --is_training 1 \
     --device cuda \
     --dataset_name action \
     --train_data_paths /content/predrnn-pytorch/data/Action-BAIR/ \
@@ -12,7 +12,7 @@ python -u run.py \
     --visual 0 \
     --reverse_input 1 \
     --img_width 128 \
-    --img_channel 1 \
+    --img_channel 3 \
     --input_length 5 \
     --total_length 10 \
     --num_hidden 128,128,128,128 \
@@ -27,8 +27,8 @@ python -u run.py \
     --r_exp_alpha 2000 \
     --lr 0.0001 \
     --batch_size 2 \
-    --max_iterations 80000 \
-    --display_interval 100 \
-    --test_interval 5000 \
-    --snapshot_interval 5000 \
-    --pretrained_model "/content/drive/MyDrive/Capstone/Data/Time Slicing/kth_model.ckpt"
+    --display_interval 1 \
+    --test_interval 10 \
+    --snapshot_interval 100 \
+    --max_iterations 10
+    # --pretrained_model "/content/drive/MyDrive/Capstone/Data/Time Slicing/kth_model.ckpt"
