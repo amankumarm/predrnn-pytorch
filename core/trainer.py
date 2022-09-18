@@ -6,9 +6,19 @@ from skimage import metrics as m
 from core.utils import preprocess, metrics
 import lpips
 import torch
+import sys
+sys.path.append(os.getcwd()+'/super-resolution')
+from model import resolve_single
+from model.edsr import edsr
+from utils import load_image, plot_sample
 
 loss_fn_alex = lpips.LPIPS(net='alex')
 
+# parent_path = os.getcwd()
+# parent = os.path.dirname(parent_path)
+
+super_res_model = edsr(scale=4, num_res_blocks=16)
+super_res_model.load_weights(os.getcwd()+'/super-resolution/weights/edsr-16-x4/weights.h5')
 
 def train(model, ims, real_input_flag, configs, itr):
     cost = model.train(ims, real_input_flag)
@@ -116,8 +126,9 @@ def test(model, test_input_handle, configs, itr):
                 name = 'gt' + str(i + 1) + '.png'
                 file_name = os.path.join(path, name)
                 img_gt = np.uint8(test_ims[0, i, :, :, :] * 255)
-                cv2.imwrite(file_name, img_gt)
-                out.write(cv2.imread(file_name))
+                if i < configs.input_length:
+                    cv2.imwrite(file_name, img_gt)
+                    out.write(cv2.imread(file_name))
             for i in range(output_length):
                 name = 'pd' + str(i + 1 + configs.input_length) + '.png'
                 file_name = os.path.join(path, name)
@@ -126,6 +137,11 @@ def test(model, test_input_handle, configs, itr):
                 img_pd = np.minimum(img_pd, 1)
                 img_pd = np.uint8(img_pd * 255)
                 cv2.imwrite(file_name, img_pd)
+                lr = load_image(file_name)
+                sr = resolve_single(super_res_model, lr)
+                sr = np.array(sr)
+                # image_rgb = cv2.cvtColor(sr, cv2.COLOR_BGR2RGB)
+                cv2.imwrite(file_name, sr)
                 out.write(cv2.imread(file_name))
             out.release()
         test_input_handle.next()
