@@ -78,8 +78,8 @@ class DataProcess:
         self.image_width = input_param['image_width']
 
         self.train_person = ['01', '02', '03', '04', '05', '06', '07', '08',
-                             '09', '10', '11', '12', '13', '14', '15', '16']
-        self.test_person = ['17', '18', '19', '20', '21', '22', '23', '24', '25']
+                             '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+        self.test_person = ['21', '22', '23', '24', '25']
 
         self.input_param = input_param
         self.seq_len = input_param['seq_length']
